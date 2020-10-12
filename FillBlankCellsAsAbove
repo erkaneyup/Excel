@@ -1,3 +1,5 @@
+'Her 2 fonksiyonda aynı işlevi görür
+
 Sub FillBlank()
     maxrownum_notblankcell = Range("A1048576").End(xlUp).Row 'A sütunundaki en altta dolu olan satırın numarasını döndürür
     For i = 2 To maxrownum_notblankcell
