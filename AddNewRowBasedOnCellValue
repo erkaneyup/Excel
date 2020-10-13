@@ -1,0 +1,19 @@
+Public Sub AddNewRowBasedOnCellValue()
+    maxrownum_notblankcell = Range("A1048576").End(xlUp).Row
+    Dim sum
+    
+    ' Sütundaki sayıların toplamını buluyor
+    For i = 1 To maxrownum_notblankcell
+        If Cells(i, 1).Value <> 0 Then
+            sum = sum + Cells(i, 1).Value
+        End If
+    Next
+    
+    ' A sütunundaki rakamın 1 eksiği kadar boşluk ekliyor
+    For i = 1 To sum
+        For j = 1 To Cells(i, 1).Value - 1
+            Cells(i, 1).Offset(1, 0).Rows.Insert
+        Next
+    Next
+        
+End Sub
