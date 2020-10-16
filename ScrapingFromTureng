@@ -1,0 +1,37 @@
+Sub WordQueryFromTureng()
+
+    Dim ieObj As Object
+
+    Set ieObj = CreateObject("InternetExplorer.Application")
+    Dim allRowOfData As Object
+    Dim word As String
+    Dim sht As Worksheet
+    Dim meaning1 As String
+    Dim meaning2 As String
+    Dim meaning3 As String
+    Set sht = ThisWorkbook.Sheets("Sheet1")
+    
+    For i = 1 To sht.Range("A10").End(3).Row
+        word = sht.Cells(i, 1).Value
+   
+        With ieObj
+            .Visible = False
+            .Navigate "http://tureng.com/tr/turkce-ingilizce/" & word
+            
+            Do While .Busy Or .ReadyState <> 4
+                DoEvents
+            Loop
+            
+            Set allRowOfData = ieObj.Document.getElementsByClassName("tr ts")
+            meaning1 = allRowOfData(1).innerText
+            sht.Cells(i, 2).Value = meaning1
+            meaning2 = allRowOfData(2).innerText
+            sht.Cells(i, 3).Value = meaning2
+            meaning3 = allRowOfData(3).innerText
+            sht.Cells(i, 4).Value = meaning3
+        End With
+    Next
+    
+    ieObj.Quit
+    
+End Sub
