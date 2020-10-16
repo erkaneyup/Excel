@@ -23,12 +23,13 @@ Sub WordQueryFromTureng()
             Loop
             
             Set allRowOfData = ieObj.Document.getElementsByClassName("tr ts")
-            meaning1 = allRowOfData(1).innerText
-            sht.Cells(i, 2).Value = meaning1
-            meaning2 = allRowOfData(2).innerText
-            sht.Cells(i, 3).Value = meaning2
-            meaning3 = allRowOfData(3).innerText
-            sht.Cells(i, 4).Value = meaning3
+                       
+            On Error Resume Next
+                For j = 0 To 2 ' Loop to get up to 3 values
+                    sht.Cells(i, j + 2).Value = allRowOfData(j).innerText
+                Next j
+            On Error GoTo 0
+            
         End With
     Next
     
