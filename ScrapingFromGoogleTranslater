@@ -1,0 +1,38 @@
+Sub WordQueryFromGoogle()
+
+Dim ieObj As Object
+
+    Set ieObj = CreateObject("InternetExplorer.Application")
+    Dim allRowOfData As Object
+    Dim word As String
+    Dim sht As Worksheet
+    Dim meaning1 As String
+    Dim meaning2 As String
+    Dim meaning3 As String
+    Set sht = ThisWorkbook.Sheets("Sheet1")
+    
+    For i = 1 To sht.Range("A10").End(3).Row
+        word = sht.Cells(i, 1).Value
+   
+        With ieObj
+            .Visible = False
+            .Navigate "https://translate.google.com/?hl=tr#view=home&op=translate&sl=en&tl=tr&text=" & word
+            
+            Do While .Busy Or .ReadyState <> 4
+                DoEvents
+            Loop
+            
+            Set allRowOfData = ieObj.document.getElementsByClassName("gt-baf-cell gt-baf-word-clickable")
+                       
+            On Error Resume Next
+                For j = 0 To 2 ' Loop to get up to 3 values
+                    sht.Cells(i, j + 2).Value = allRowOfData(j).innerText
+                Next j
+            On Error GoTo 0
+            
+        End With
+    Next
+    
+    ieObj.Quit
+    
+End Sub
