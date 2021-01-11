@@ -1,11 +1,7 @@
-'Her 2 fonksiyonda aynı işlevi görür
-
 Sub FillBlank()
-    maxrownum_notblankcell = Range("A1048576").End(xlUp).Row 'A sütunundaki en altta dolu olan satırın numarasını döndürür
-    For i = 2 To maxrownum_notblankcell
+    'maxrownum_notblankcell = Range("A1048576").End(xlUp).Row 'A sütunundaki en altta dolu olan satırın numarasını döndürür
+    For i = 2 To 50000 ' en alttaki satır için manuel eklemeyi unutma
         If Cells(i, 1) = "" Then
-            Cells(i, 1).Value = Cells(i - 1, 1).Value
-            Cells(i, 2).Value = Cells(i - 1, 2).Value
             Cells(i, 3).Value = Cells(i - 1, 3).Value
             Cells(i, 4).Value = Cells(i - 1, 4).Value
             Cells(i, 5).Value = Cells(i - 1, 5).Value
@@ -13,15 +9,4 @@ Sub FillBlank()
     Next
 End Sub
 
-Sub FillBlank2()
-    maxrownum_notblankcell = Range("A1048576").End(xlUp).Row 'A sütunundaki en altta dolu olan satırın numarasını döndürür
-    For i = 2 To maxrownum_notblankcell
-        If Range("A" & i) = "" Then
-            Range("A" & i) = Range("A" & i - 1)
-            Range("B" & i) = Range("B" & i - 1)
-            Range("C" & i) = Range("C" & i - 1)
-            Range("D" & i) = Range("D" & i - 1)
-            Range("E" & i) = Range("E" & i - 1)
-        End If
-    Next
-End Sub
+
